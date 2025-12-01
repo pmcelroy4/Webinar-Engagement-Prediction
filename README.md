@@ -66,9 +66,13 @@ Webinar engagement (attending more sessions, staying longer) correlates with hig
 Location has less predictive power and may not materially improve model performance.
 
 Repository Structure
-├── market_analysis.ipynb   # Main analysis notebook
-├── README.md               # Project documentation
-└── data/                   # (Optional) Input dataset location
+```bash
+.
+├── market_analysis.ipynb
+├── README.md
+└── data/
+```
+
 
 Tools & Libraries Used
 
