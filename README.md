@@ -1,95 +1,81 @@
-# Webinar-Engagement-Prediction
-Lead analysis project for a fictional company, ProfDev, which runs weekly webinars and seeks to identify high-potential prospects. Using engagement, survey responses, location, and lifecycle stage data, this project analyzes marketing interactions to surface the best leads for sales outreach.
+# Webinar Engagement Lead Scoring Model
 
-# ProfDev Lead Scoring Analysis
+This project analyzes webinar engagement data for a fictional company, ProfDev, which runs weekly professional-development webinars. The goal is to identify high-potential leads who are most likely to convert into a business opportunity, enabling more efficient and targeted sales outreach.
 
-This project analyzes marketing engagement data for a fictional company, ProfDev, which hosts weekly professional-development webinars. The goal is to identify high-quality leads who are most likely to convert into customers so sales teams can focus outreach efforts efficiently.
+The analysis focuses on behavioral engagement signals such as webinar attendance, duration, survey responses, and geographic attributes to predict whether a lead will convert.
+
+---
 
 # Project Overview
 
-As part of a Business Operations workflow, this analysis evaluates how webinar behavior, survey responses, and basic lead attributes correlate with downstream sales actions—specifically whether a lead ultimately booked a demo.
+As part of a marketing analytics and business operations workflow, this project builds a supervised classification model to predict lead conversion (i.e., whether a user books a demo).
 
-You’ll explore and model the data to surface the most promising prospects based on their interactions with ProfDev’s marketing funnel.
+The workflow includes:
+- Data cleaning and preprocessing
+- Exploratory data analysis (EDA)
+- Feature engineering and encoding
+- Handling class imbalance
+- Model training (Logistic Regression)
+- Model evaluation using multiple metrics beyond accuracy
+- Feature interpretation and business insight generation
 
-Dataset Description
+A key focus of this project is addressing **class imbalance**, which initially resulted in misleadingly high accuracy but poor predictive performance for the minority class.
 
-Each row in the dataset represents a single lead. Key columns include:
+---
 
-Engagement Metrics
+# Dataset Description
 
-Number of webinars registered
+Each row represents a unique lead interacting with ProfDev’s webinar funnel.
 
-Number of webinars attended
+## Engagement Metrics
+- Number of webinar registrations
+- Number of webinars attended
+- Average webinar attendance duration
+- Number of sessions with >50% attendance duration
 
-Average attendance duration
+## Survey Behavior
+- Post-webinar survey response indicating interest in speaking with the team
+  - 1 = expressed interest
+  - 0 = no interest / no response
 
-Count of webinars where attendance duration exceeded 50%
+## Target Variable
+- Opportunity (binary classification target)
+  - 1 = booked a demo / converted
+  - 0 = did not convert
 
-Survey Behavior
+---
 
-Post-webinar survey response
+# Modeling Approach
 
-1 — lead expressed interest in speaking with the team
+## Baseline Model
+A Logistic Regression model was trained to establish a baseline for conversion prediction.
 
-0 — no interest indicated
+## Class Imbalance Handling
+The dataset exhibited significant class imbalance, with far fewer positive conversions than non-conversions. To address this, **oversampling (upsampling the minority class)** was applied to improve model learning and recall for the positive class.
 
-Lead Attributes
+## Evaluation Strategy
+Model performance was evaluated using:
+- Accuracy (baseline reference only)
+- Confusion Matrix
+- Precision, Recall, and F1-score
+- ROC Curve and AUC
+- Precision-Recall Curve (important for imbalanced classification)
 
-Geographic location
+---
 
-Lifecycle stage
+# Key Findings
 
-1 — booked a sales demo
+- Survey engagement (expressed interest in speaking with ProfDev) is the strongest predictor of conversion.
+- Webinar engagement behaviors (attendance frequency and duration) also contribute meaningfully to prediction performance.
+- Geographic features were less predictive and risk introducing overfitting or reduced generalization.
+- The initial high accuracy masked poor minority-class performance, highlighting the importance of using **recall, ROC-AUC, and PR curves** for evaluation.
 
-0 — did not book a demo
+---
 
-Objectives
+# Repository Structure
 
-Clean and explore the engagement dataset.
-
-Engineer features to better capture lead quality.
-
-Train classification models (e.g., logistic regression, decision trees) to predict demo-booking likelihood.
-
-Interpret feature importance to understand what behaviors signal buying intent.
-
-Surface the highest-potential leads for targeted sales outreach.
-
-Key Findings
-
-(Based on the notebook structure—expand or revise as needed.)
-
-Post-webinar survey interest is one of the strongest predictors of demo booking.
-
-Webinar engagement (attending more sessions, staying longer) correlates with higher conversion likelihood.
-
-Location has less predictive power and may not materially improve model performance.
-
-Repository Structure
 ```bash
 .
 ├── market_analysis.ipynb
+├── data/
 ├── README.md
-└── data/
-```
-
-
-Tools & Libraries Used
-
-Python
-
-Pandas · NumPy
-
-Scikit-learn
-
-Matplotlib · Seaborn
-
-Future Improvements
-
-Deploy a production-ready lead scoring pipeline
-
-Automate daily scoring using a scheduled workflow
-
-Integrate with CRM systems (e.g., HubSpot, Salesforce)
-
-Add real-time dashboards for marketing and sales teams
